@@ -1,7 +1,7 @@
 import sys
 import os
 
-HOME = "/home/artur"
+HOME = "/home/user"
 builtin_commands = ["echo","exit","type","pwd","cd"]
 
 def type_command(type_command, all_paths=None,quiet=True):
