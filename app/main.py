@@ -2,18 +2,20 @@ import sys
 import os
 import getpass
 
-HOME = os.path.expanduser("~")  # This will automatically use the current user's home directory
-builtin_commands = ["echo","exit","type","pwd","cd"]
+HOME = os.path.expanduser("~")
+BUILTIN_COMMANDS = ["echo", "exit", "type", "pwd", "cd"]
+
 
 def get_username():
     """Get the current Linux username."""
     return getpass.getuser()
 
-def type_command(type_command, all_paths=None,quiet=True):
 
+def type_command(type_command, all_paths=None, quiet=True):
+    """Check if a command is a shell builtin or an external command."""
     found = False
 
-    if type_command in builtin_commands:
+    if type_command in BUILTIN_COMMANDS:
         print(f"{type_command} is a shell builtin")
         found = True
         search_path = "shell builtin"
@@ -32,9 +34,10 @@ def type_command(type_command, all_paths=None,quiet=True):
 
     return found, search_path
 
+
 def get_current_dir(absolute=False):
     return os.getcwd()
-    
+
 
 def cd(path):
     if path.startswith("~"):
@@ -44,6 +47,7 @@ def cd(path):
     except:
         print(f"cd: {path}: No such file or directory")
 
+
 def main():
 
     PATH = os.environ.get("PATH")
@@ -51,7 +55,7 @@ def main():
     while True:
         check_dir = get_current_dir(absolute=True)
 
-        if (check_dir.lstrip("/home/") == ""):
+        if check_dir.lstrip("/home/") == "":
             current_dir = get_current_dir(absolute=True)
         else:
             current_dir = get_current_dir(absolute=False)
@@ -59,39 +63,46 @@ def main():
         if PATH:
             all_paths = PATH.split(":")
 
-        #sys.stdout.write(f"{current_dir}$ ")
+        # sys.stdout.write(f"{current_dir}$ ")
         sys.stdout.write("$ ")
         # Wait for user input
         command = input()
-        
+
         # Force exit
         if command == "exit 0":
             break
-        
+
         # Parse user input
         user_stdin = command.split(" ")
         main_command = user_stdin[0]
 
         # Handle builtin commands
-        if main_command in builtin_commands:
-            
+        if main_command in BUILTIN_COMMANDS:
+
+            # echo
             if main_command == "echo":
                 print(" ".join(user_stdin[1:]))
-            
+
+            # type
             elif main_command == "type":
                 if PATH:
-                    found, search_path = type_command(user_stdin[1],all_paths,quiet=False)
+                    found, search_path = type_command(
+                        user_stdin[1], all_paths, quiet=False
+                    )
                 if not found:
                     print(f"{user_stdin[1]}: not found")
-                
+
+            # pwd
             elif main_command == "pwd":
                 print(os.getcwd())
 
+            # cd
             elif main_command == "cd":
                 cd(user_stdin[1])
+
         # Handle external commands
         elif PATH:
-            found, search_path = type_command(main_command,all_paths)
+            found, search_path = type_command(main_command, all_paths)
             if found:
                 os.system(command)
             else:
