@@ -37,7 +37,10 @@ def get_current_dir(absolute=False):
 def cd(path):
     if path.startswith("~"):
         path = path.replace("~", "/home/artur")
-    os.chdir(path)
+    try:
+        os.chdir(path)
+    except:
+        print(f"cd: {path}: No such file or directory")
 
 def main():
 
