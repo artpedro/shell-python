@@ -1,7 +1,7 @@
 import sys
 import os
 
-USER_NAME = "artur"
+HOME = "/home/artur"
 builtin_commands = ["echo","exit","type","pwd","cd"]
 
 def type_command(type_command, all_paths=None,quiet=True):
@@ -28,15 +28,12 @@ def type_command(type_command, all_paths=None,quiet=True):
     return found, search_path
 
 def get_current_dir(absolute=False):
-    absolute_path = os.getcwd()
-    if absolute:
-        return absolute_path
-    else:
-        return "~" + absolute_path.lstrip("/home/artur")
+    return os.getcwd()
+    
 
 def cd(path):
     if path.startswith("~"):
-        path = path.replace("~", "/home/artur")
+        path = path.replace("~", HOME)
     try:
         os.chdir(path)
     except:
