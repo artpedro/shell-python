@@ -39,13 +39,13 @@ def main():
                     for path in all_paths:
                         search_path = f"{path}/{type_command}"
                         if os.path.isfile(search_path):
-                            print(f"{type_command}: is {search_path}")
+                            print(f"{type_command} is {search_path}")
                             found = True
                             break
                         else:
                             continue
                 if not found:
-                    print(f"{user_stdin[1]} not found")
+                    print(f"{user_stdin[1]}: not found")
         else:
             print(f"{command}: command not found")
 
