@@ -1,7 +1,7 @@
 import sys
 import os
 
-builtin_commands = ["echo","exit","type"]
+builtin_commands = ["echo","exit","type","pwd"]
 
 def type_command(type_command, all_paths=None,quiet=True):
 
@@ -51,12 +51,13 @@ def main():
                 print(" ".join(user_stdin[1:]))
             
             elif main_command == "type":
-                
                 if PATH:
                     found, search_path = type_command(user_stdin[1],all_paths,quiet=False)
-                    
                 if not found:
                     print(f"{user_stdin[1]}: not found")
+                
+            elif main_command == "pwd":
+                print(os.getcwd())
         elif PATH:
             found, search_path = type_command(main_command,all_paths)
             if found:
