@@ -1,21 +1,24 @@
 import sys
 
+valid_commands = ["echo"]
 
 def main():
     # Uncomment this block to pass the first stage
     while True:
         sys.stdout.write("$ ")
-    
-
         
         # Wait for user input
         command = input()
-        valid_commands = ["cd", "pwd", "echo", "exit"]
-
+        
         if command == "exit 0":
             break
-        if command in valid_commands:
-            print(command)
+        
+        user_stdin = command.split(" ")
+        main_command = user_stdin[0]
+
+        if main_command in valid_commands:
+            if main_command == "echo":
+                print(" ".join(user_stdin[1:]))
         else:
             print(f"{command}: command not found")
 
