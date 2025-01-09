@@ -1,6 +1,6 @@
 import sys
 
-valid_commands = ["echo"]
+builtin_commands = ["echo","exit","type"]
 
 def main():
     # Uncomment this block to pass the first stage
@@ -16,9 +16,14 @@ def main():
         user_stdin = command.split(" ")
         main_command = user_stdin[0]
 
-        if main_command in valid_commands:
+        if main_command in builtin_commands:
             if main_command == "echo":
                 print(" ".join(user_stdin[1:]))
+            elif main_command == "type":
+                if user_stdin[1] in builtin_commands:
+                    print(f"{user_stdin[1]} is a shell builtin")
+                else:
+                    print(f"{user_stdin[1]}: command not found")
         else:
             print(f"{command}: command not found")
 
