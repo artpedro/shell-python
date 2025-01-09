@@ -1,8 +1,13 @@
 import sys
 import os
+import getpass
 
-HOME = "/home/user"
+HOME = os.path.expanduser("~")  # This will automatically use the current user's home directory
 builtin_commands = ["echo","exit","type","pwd","cd"]
+
+def get_username():
+    """Get the current Linux username."""
+    return getpass.getuser()
 
 def type_command(type_command, all_paths=None,quiet=True):
 
