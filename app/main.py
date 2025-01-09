@@ -23,7 +23,7 @@ def main():
                 if user_stdin[1] in builtin_commands:
                     print(f"{user_stdin[1]} is a shell builtin")
                 else:
-                    print(f"{user_stdin[1]}: command not found")
+                    print(f"{user_stdin[1]}: not found")
         else:
             print(f"{command}: command not found")
 
