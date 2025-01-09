@@ -45,7 +45,7 @@ def main():
                         else:
                             continue
                 if not found:
-                    print(f"{user_stdin[1]}: not found")
+                    print(f"{user_stdin[1]} not found")
         else:
             print(f"{command}: command not found")
 
