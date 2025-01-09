@@ -60,9 +60,9 @@ def main():
         elif PATH:
             found, search_path = type_command(main_command,all_paths)
             if found:
-                os.system(command)    
-        else:
-            print(f"{command}: command not found")
+                os.system(command)
+            else:
+                print(f"{command}: command not found")
 
 if __name__ == "__main__":
     main()
