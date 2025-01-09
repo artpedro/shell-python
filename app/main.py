@@ -5,10 +5,15 @@ def main():
     # Uncomment this block to pass the first stage
     while True:
         sys.stdout.write("$ ")
+    
+
         
-        valid_commands = ["cd", "pwd", "echo", "exit"]
         # Wait for user input
         command = input()
+        valid_commands = ["cd", "pwd", "echo", "exit"]
+
+        if command == "exit 0":
+            break
         if command in valid_commands:
             print(command)
         else:
